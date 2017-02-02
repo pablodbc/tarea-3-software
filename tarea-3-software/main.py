@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 '''
-Created on 1 feb. 2017
+Created on 2 feb. 2017
 
 @author: carlos
 '''

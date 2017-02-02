@@ -1,18 +1,15 @@
 '''
-Created on Feb 2, 2017
+Created on 2 feb. 2017
 
-@author: pablodbc
+@author: carlos
+@author: pablo
 '''
 import unittest
+from main import *
 
 
 class Test(unittest.TestCase):
 
 
-    def testName(self):
-        pass
-
-
-if __name__ == "__main__":
-    #import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()
+    def testCedulaNegativa(self):
+        billetera = BilleteraElectronica(0,"Pablo","Betancourt",-1,1234)
