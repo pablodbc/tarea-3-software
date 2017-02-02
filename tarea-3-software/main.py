@@ -36,3 +36,6 @@ class BilleteraElectronica:
         assert(PIN == self.PIN and self.balance >= monto)
         self.consumos += [Registro(monto, fecha, localID)]
         self.balance -= monto
+
+    def saldo(self):
+        return self.balance
