@@ -31,3 +31,8 @@ class BilleteraElectronica:
         assert(monto > 0)
         self.recargas += [Registro(monto, fecha, localID)]
         self.balance += monto
+
+    def consumir(self, PIN, monto, localID, fecha = datetime.now()):
+        assert(PIN == self.PIN and self.balance >= monto)
+        self.consumos += [Registro(monto, fecha, localID)]
+        self.balance -= monto
