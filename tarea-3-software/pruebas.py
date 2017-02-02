@@ -10,7 +10,7 @@ from main import *
 
 class Test(unittest.TestCase):
 
-	# Casos maliciosos
+    # Casos maliciosos
     def testCedulaNegativa(self):
         billetera = BilleteraElectronica(0,"Pablo","Betancourt",-1,1234)
 
@@ -34,19 +34,55 @@ class Test(unittest.TestCase):
         billetera.consumir(1234,1,"Pablo")
 
     def testNombreConLetrasFueraDeLoNormal(self):
-    	identificador, nombres, apellidos, CI, PIN = 0,"ñññññ","áááááááááá",1,1234
-    	billetera = BilleteraElectronica(identificador, nombres, apellidos, CI, PIN)
-    	assert(billetera.identificador == identificador)
-    	assert(billetera.nombres == nombres)
-    	assert(billetera.apellidos == apellidos)
-    	assert(billetera.CI == CI)
-    	assert(billetera.PIN == PIN)
-    	assert(billetera.balance == 0)
+        identificador, nombres, apellidos, CI, PIN = 0,"ñññññ","áááááááááá",1,1234
+        billetera = BilleteraElectronica(identificador, nombres, apellidos, CI, PIN)
+        assert(billetera.identificador == identificador)
+        assert(billetera.nombres == nombres)
+        assert(billetera.apellidos == apellidos)
+        assert(billetera.CI == CI)
+        assert(billetera.PIN == PIN)
+        assert(billetera.balance == 0)
 
     def testBalanceConsistente(self):
-    	identificador, nombres, apellidos, CI, PIN,balance = 0,"ñññññ","áááááááááá",1,1234,3
-    	billetera = BilleteraElectronica(identificador, nombres, apellidos, CI, PIN)
-    	assert(billetera.balance  == 3)
+        identificador, nombres, apellidos, CI, PIN,balance = 0,"ñññññ","áááááááááá",1,1234,3
+        billetera = BilleteraElectronica(identificador, nombres, apellidos, CI, PIN,balance)
+        assert(billetera.balance  == 3)
+
+    def testConcistenciaClaseRegistro(self):
+        monto, fecha, localID = 20, datetime.now(), 42 
+        new = Registro(monto, fecha, localID)
+        assert(new.monto == monto)
+        assert(new.fecha == datetime.strftime(fecha,'%d/%m/%Y %H:%M'))
+        assert(new.localID == localID)
+
+    def testConcistenciaBalanceSaldo(self):
+        identificador, nombres, apellidos, CI, PIN,balance = 0,"ñññññ","áááááááááá",1,1234,3
+        new = BilleteraElectronica(identificador, nombres, apellidos, CI, PIN,balance)
+        assert(new.saldo() == new.balance)
+
+    def testConcistenciaRegistroRecargas(self):
+        identificador, nombres, apellidos, CI, PIN,balance = 0,"ñññññ","áááááááááá",1,1234,3
+        new = BilleteraElectronica(identificador, nombres, apellidos, CI, PIN,balance)
+        for x in range(1, 11):
+            new.recargar(10, 42)
+            assert(len(new.recargas) == x)
+
+    def testConcistenciaRegistroConsumos(self):
+        identificador, nombres, apellidos, CI, PIN,balance = 0,"ñññññ","áááááááááá",1,1234,3
+        new = BilleteraElectronica(identificador, nombres, apellidos, CI, PIN,balance)
+        for x in range(1, 11):
+            new.recargar(10, 42)
+            new.consumir(1234,10, 42)
+            assert(len(new.consumos) == x)
+
+    def testConsistenciaConsumoBalance(self):
+        identificador, nombres, apellidos, CI, PIN,balance = 0,"ñññññ","áááááááááá",1,1234,3
+        new = BilleteraElectronica(identificador, nombres, apellidos, CI, PIN,balance)
+        monto1,monto2 = 12,10
+        new.recargar(monto1, 42)
+        new.consumir(1234,monto2, 42)
+        assert(new.balance == monto1 - monto2)
+
 
 
 if __name__ == "__main__":
