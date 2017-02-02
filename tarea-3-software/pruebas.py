@@ -33,5 +33,21 @@ class Test(unittest.TestCase):
         billetera = BilleteraElectronica(0,"Pablo","Betancourt",1,1234,0.9999999999999999999999999)
         billetera.consumir(1234,1,"Pablo")
 
+    def testNombreConLetrasFueraDeLoNormal(self):
+    	identificador, nombres, apellidos, CI, PIN = 0,"ñññññ","áááááááááá",1,1234
+    	billetera = BilleteraElectronica(identificador, nombres, apellidos, CI, PIN)
+    	assert(billetera.identificador == identificador)
+    	assert(billetera.nombres == nombres)
+    	assert(billetera.apellidos == apellidos)
+    	assert(billetera.CI == CI)
+    	assert(billetera.PIN == PIN)
+    	assert(billetera.balance == 0)
+
+    def testBalanceConsistente(self):
+    	identificador, nombres, apellidos, CI, PIN,balance = 0,"ñññññ","áááááááááá",1,1234,3
+    	billetera = BilleteraElectronica(identificador, nombres, apellidos, CI, PIN)
+    	assert(billetera.balance  == 3)
+
+
 if __name__ == "__main__":
     unittest.main()
