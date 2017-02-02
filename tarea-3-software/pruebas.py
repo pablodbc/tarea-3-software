@@ -13,3 +13,6 @@ class Test(unittest.TestCase):
 
     def testCedulaNegativa(self):
         billetera = BilleteraElectronica(0,"Pablo","Betancourt",-1,1234)
+
+if __name__ == "__main__":
+    unittest.main()
