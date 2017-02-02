@@ -48,26 +48,26 @@ class Test(unittest.TestCase):
         billetera = BilleteraElectronica(identificador, nombres, apellidos, CI, PIN,balance)
         assert(billetera.balance  == 3)
 
-    def testConcistenciaClaseRegistro(self):
+    def testConsistenciaClaseRegistro(self):
         monto, fecha, localID = 20, datetime.now(), 42 
         new = Registro(monto, fecha, localID)
         assert(new.monto == monto)
         assert(new.fecha == datetime.strftime(fecha,'%d/%m/%Y %H:%M'))
         assert(new.localID == localID)
 
-    def testConcistenciaBalanceSaldo(self):
+    def testConsistenciaBalanceSaldo(self):
         identificador, nombres, apellidos, CI, PIN,balance = 0,"ñññññ","áááááááááá",1,1234,3
         new = BilleteraElectronica(identificador, nombres, apellidos, CI, PIN,balance)
         assert(new.saldo() == new.balance)
 
-    def testConcistenciaRegistroRecargas(self):
+    def testConsistenciaRegistroRecargas(self):
         identificador, nombres, apellidos, CI, PIN,balance = 0,"ñññññ","áááááááááá",1,1234,3
         new = BilleteraElectronica(identificador, nombres, apellidos, CI, PIN,balance)
         for x in range(1, 11):
             new.recargar(10, 42)
             assert(len(new.recargas) == x)
 
-    def testConcistenciaRegistroConsumos(self):
+    def testConsistenciaRegistroConsumos(self):
         identificador, nombres, apellidos, CI, PIN,balance = 0,"ñññññ","áááááááááá",1,1234,3
         new = BilleteraElectronica(identificador, nombres, apellidos, CI, PIN,balance)
         for x in range(1, 11):
