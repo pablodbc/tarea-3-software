@@ -14,3 +14,15 @@ class Registro:
 
     def __str__(self):
         return "\nMonto: "+str(self.monto)+"\nFecha: "+self.fecha+"\nEstablecimiento: "+str(self.localID)+"\n"
+
+class BilleteraElectronica:
+    def __init__(self, identificador, nombres, apellidos, CI, PIN, balance = 0):
+        self.identificador = identificador
+        self.nombres = nombres
+        self.apellidos = apellidos
+        assert(CI >=0)
+        self.CI = CI
+        self.PIN = PIN
+        self.recargas = []
+        self.consumos = []
+        self.balance = balance
